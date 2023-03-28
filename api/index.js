@@ -6,8 +6,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 var mongoose = require('mongoose');
-var User = require('./models/userModel');
-var Image = require('./models/imageModel')
+var User = require('../models/userModel');
+var Image = require('../models/imageModel')
 
 const app = express();
 
