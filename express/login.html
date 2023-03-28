@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>
+        <center> NASA Image of The Day </center>
+    </h1>
+    <p>
+        <center>
+            <script>  document.write(new Date().toLocaleDateString()); </script>
+        </center>
+    </p>
+
+    <center>
+        <h2> Login to view Today's Image </h2>
+        <form id="log-form">
+            <input type="text" id="username_log" placeholder="Username" />
+            <input type="password" id="password_log" placeholder="Password" />
+            <input type="submit" name="Submit Form">
+        </form>
+
+        <h2>Don't have an Account?</h2>
+        <form>
+            <input type = "button" onclick = "toRegister()" value="Create an Account">
+        </form>
+        </center>
+
+        <script>
+            function toRegister() {
+                window.location.href = "index.html"
+            }
+        </script>
+
+        <script>
+            form = document.getElementById('log-form');
+            form.addEventListener('submit', checkCreds);
+
+            async function checkCreds(event) {
+                event.preventDefault()
+
+                const username = document.getElementById('username_log').value;
+                const password = document.getElementById('password_log').value;
+
+                const result = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                }).then((res) => res.json())
+                if (result.status === 'ok') {
+                    alert("Success")
+                    window.location.href = "viewimage.html"
+                } else {
+                    alert(result.error)
+                }
+            }
+        </script>
+</body>
+
+</html>

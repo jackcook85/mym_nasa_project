@@ -1,0 +1,15 @@
+{
+    "name": "NASA-Daily-Image",
+    "version": "1.0.0",
+    "description": "Display a new image everyday from NASA's homepage",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^9.0.0",
+        "mongodb": "5.1",
+        "mongoose": "^7.0.3"
+    }
+}

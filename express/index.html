@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h1>
+    <center> NASA Image of The Day </center>
+  </h1>
+  <p>
+    <center>
+      <script>  document.write(new Date().toLocaleDateString()); </script>
+    </center>
+  </p>
+
+  <center>
+    <h2> Create New Account </h2>
+    <form id="reg-form">
+      <input type="text" autocomplete="off" id="username_reg" placeholder="Username" />
+      <input type="password" autocomplete="off" id="password_reg" placeholder="Password" />
+      <input type="submit" name="Submit Form" value = "Submit Form">
+    </form>
+
+    <h2> Delete an Account </h2>
+    <form id = "del-form">
+      <input type="text" autocomplete="off" id="username_del" placeholder="Username" />
+      <input type="password" autocomplete="off" id="password_del" placeholder="Password" />
+      <input type="submit" name="Delete Account" value = "Delete">
+    </form>
+
+    <h2> Already have an account? </h2>
+    <form id="to-login">
+      <input type="button" value="Login" onclick="toLogin()">
+    </form>
+  </center>
+
+  <script>
+    function toLogin() {
+      window.location.href = "login.html"
+    }
+  </script>
+
+  <script>
+    form = document.getElementById('reg-form')
+    form.addEventListener('submit', registerUser)
+    form.addEventListener('submit', clearInputs)
+
+    async function registerUser(event) {
+      event.preventDefault()
+
+      const username = document.getElementById('username_reg').value;
+      const password = document.getElementById('password_reg').value;
+
+      const result = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      }).then((res) => res.json())
+    }
+
+    function clearInputs(event) {
+      event.preventDefault()
+      document.getElementById('username_reg').value = "";
+      document.getElementById('password_reg').value = "";
+      document.getElementById('username_del').value = "";
+      document.getElementById('password_del').value = "";
+    }
+  </script>
+
+  <script>
+    form = document.getElementById('del-form');
+    form.addEventListener('submit', deleteUser)
+    form.addEventListener('submit', clearInputs)
+
+    async function deleteUser(event) {
+      event.preventDefault()
+      const username = document.getElementById('username_del').value;
+      const password = document.getElementById('password_del').value;
+
+      const result = await fetch('/api/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      }).then((res) => res.json())
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<style>
+  #nasa-img {
+    width: 50%;
+    height: auto;
+  }
+</style>
+
+<body>
+
+  <h1>
+    <center> NASA Image of The Day </center>
+  </h1>
+  <p>
+    <center>
+      <script>  document.write(new Date().toLocaleDateString()); </script>
+    </center>
+  </p>
+  <center> <img id="nasa-img" src="" alt="Nasa Image of The Day"> </center>
+
+  <center><h2>Manage your Accounts</h2>
+  <form id = "to_register">
+    <input type="button" id="to-register" onclick="toRegister()" value="Return to Register">
+  </form></center>
+  <center><h2>Change Logged in Account</h2>
+  <form id = "to_login">
+    <input type="button" id="to-login" onclick="toLogin()" value="Return to Login">
+  </form></center>
+  <script>
+    function toLogin() {
+      window.location.href = "login.html"
+    }
+    function toRegister() {
+      window.location.href = "index.html"
+    }
+  </script>
+  <script>
+    var req = new XMLHttpRequest();
+    var url = "https://api.nasa.gov/planetary/apod?api_key=";
+    var api_key = "yLdSbxasRFDGfKLFdBr6N33mFUTBZ6FJOY3Xrnv7";
+    var curr = new Date()
+    var date = curr.getFullYear() + "-" + curr.getMonth() + "-" + curr.getDate()
+
+    req.open("GET", url + api_key + "&date=" + date);
+    req.send();
+
+    req.addEventListener("load", function () {
+      if (req.status == 200 && req.readyState == 4) {
+        var response = JSON.parse(req.responseText);
+        document.getElementById("nasa-img").src = response.hdurl;
+      }
+    })
+  </script>
+</body>
+
+</html>
