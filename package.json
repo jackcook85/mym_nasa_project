@@ -8,6 +8,7 @@
     "dependencies": {
         "bcryptjs": "^2.4.3",
         "express": "^4.17.1",
+        "googleapis": "^114.0.0",
         "jsonwebtoken": "^9.0.0",
         "mongodb": "5.1",
         "mongoose": "^7.0.3"

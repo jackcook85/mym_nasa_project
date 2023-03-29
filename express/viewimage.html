@@ -14,7 +14,7 @@
   </h1>
   <p>
     <center>
-      <script>  document.write(new Date().toLocaleDateString()); </script>
+      <script>  document.write(new Date().toDateString()); </script>
     </center>
   </p>
   <center> <img id="nasa-img" src="" alt="Nasa Image of The Day"> </center>
@@ -40,7 +40,7 @@
     var url = "https://api.nasa.gov/planetary/apod?api_key=";
     var api_key = "yLdSbxasRFDGfKLFdBr6N33mFUTBZ6FJOY3Xrnv7";
     var curr = new Date()
-    var date = curr.getFullYear() + "-" + curr.getMonth() + "-" + curr.getDate()
+    var date = curr.getFullYear() + "-" + (curr.getMonth() + 1) + "-" + curr.getDate()
 
     req.open("GET", url + api_key + "&date=" + date);
     req.send();
