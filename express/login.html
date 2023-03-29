@@ -43,6 +43,7 @@
                 const password = document.getElementById('password_log').value;
 
                 const result = await fetch('/login', {
+
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
