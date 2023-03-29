@@ -15,12 +15,12 @@ export default async function register(req, res) {
     try {
         //Check username
         if (!username || typeof username != 'string') {
-            res.json({ error: 'Invalid username' });
+            return res.json({ error: 'Invalid username' });
         }
 
         //Check password
         if (!plaintextpassword || typeof plaintextpassword != 'string') {
-            res.json({ error: 'Invalid Password' });
+            return res.json({ error: 'Invalid Password' });
         }
 
         //Hash the password
@@ -28,7 +28,7 @@ export default async function register(req, res) {
 
         //Create the new user
         const response = await User.create({ "username": username, "password": password });
-        res.json({status: "Success"});
+        return res.json({status: "Success"});
         console.log("User Created Successfully", response)
     } catch (err) {
         console.error(err);

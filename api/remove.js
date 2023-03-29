@@ -15,27 +15,27 @@ export default async function remove(req, res) {
     const user = await User.findOne({ "username": username }).lean();
     try {
         if (!user) {
-            res.json({ error: "Not an existing user" })
+            return res.json({ error: "Not an existing user" })
         }
         //Check username
         if (!username || typeof username != 'string') {
-            res.json({ error: 'Invalid username' })
+            return res.json({ error: 'Invalid username' })
         }
         //Check password
         if (!password || typeof password != 'string') {
-            res.json({ error: 'Invalid Password' })
+            return res.json({ error: 'Invalid Password' })
         }
         //Check Credentials
         if (await bcrypt.compare(password, user.password)) {
             //Delete the user if password is correct
             const response = await User.deleteOne(user);
-            res.json({ status: "Success" })
+            return res.json({ status: "Success" })
         }
         else {
-            res.json({ error: "Incorrect Password for This Account" })
+            return res.json({ error: "Incorrect Password for This Account" })
         }
     } catch (err) {
         console.error(err)
-        res.json({ error: "System Error" });
+        return res.json({ error: "System Error" });
     }
 }
