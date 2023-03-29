@@ -58,7 +58,7 @@
       const username = document.getElementById('username_reg').value;
       const password = document.getElementById('password_reg').value;
 
-      const result = await fetch(register, {
+      const result = await fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -89,7 +89,7 @@
       const username = document.getElementById('username_del').value;
       const password = document.getElementById('password_del').value;
 
-      const result = await fetch(remove, {
+      const result = await fetch('/remove', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

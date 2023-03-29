@@ -11,5 +11,8 @@
         "jsonwebtoken": "^9.0.0",
         "mongodb": "5.1",
         "mongoose": "^7.0.3"
+    },
+    "devDependencies": {
+        "@vercel/node": "^2.10.1"
     }
 }

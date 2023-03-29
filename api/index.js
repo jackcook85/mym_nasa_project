@@ -25,7 +25,7 @@ mongoose.connect("mongodb+srv://jack-user:xG1uUiB768v6g9ns@cluster47197.dvgwacl.
 
 app.use('/', express.static(path.join(__dirname, 'static')));
 
-export default async function login(req, res) {
+app.post('/login', async (req, res) => {
     const { username, password } = req.body
     const user = await User.findOne({ "username": username }).lean();
     if (!user) {
@@ -41,9 +41,9 @@ export default async function login(req, res) {
         return res.json({ status: 'ok', data: token });
     }
     return res.json({ status: 'error', error: "Invalid username/password" });
-}
+})
 
-export default async function login(req, res) {
+app.post('/register', async (req, res) => {
     const { username, password: plaintextpassword } = req.body
     try {
         //Check username
@@ -67,9 +67,9 @@ export default async function login(req, res) {
         console.error(err);
         return res.json({ error: 'Server error' });
     }
-}
+})
 
-export default async function remove(req, res) {
+app.post('/remove', async (req, res) => {
     const { username, password } = req.body
     const user = await User.findOne({ "username": username }).lean();
     try {
@@ -97,7 +97,7 @@ export default async function remove(req, res) {
         console.error(err)
         alert(res.json({ error: "System Error" }));
     }
-}
+})
 
 const server = http.createServer(app);
 const port = 3000;
