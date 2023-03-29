@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/register",
+        "dest": "/api/index.js",
+        "methods": ["POST"]
+      },
+      {
+        "src": "/login",
+        "dest": "/api/index.js",
+        "methods": ["POST"]
+      },
+      {
+        "src": "/remove",
+        "dest": "/api/index.js",
+        "methods": ["POST"]
+      }
+    ]
+  }
