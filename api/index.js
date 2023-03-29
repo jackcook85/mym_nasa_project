@@ -25,7 +25,7 @@ mongoose.connect("mongodb+srv://jack-user:xG1uUiB768v6g9ns@cluster47197.dvgwacl.
 
 app.use('/', express.static(path.join(__dirname, 'static')));
 
-app.post('/login', async (req, res) => {
+export default async function login(req, res) {
     const { username, password } = req.body
     const user = await User.findOne({ "username": username }).lean();
     if (!user) {
@@ -41,19 +41,19 @@ app.post('/login', async (req, res) => {
         return res.json({ status: 'ok', data: token });
     }
     return res.json({ status: 'error', error: "Invalid username/password" });
-})
+}
 
-app.post('/register', async (req, res) => {
+export default async function login(req, res) {
     const { username, password: plaintextpassword } = req.body
     try {
         //Check username
         if (!username || typeof username != 'string') {
-            return res.json({ error: 'Invalid username' })
+            alert(res.json({ error: 'Invalid username' }));
         }
 
         //Check password
         if (!plaintextpassword || typeof plaintextpassword != 'string') {
-            return res.json({ error: 'Invalid Password' })
+            alert(res.json({ error: 'Invalid Password' }));
         }
 
         //Hash the password
@@ -61,42 +61,43 @@ app.post('/register', async (req, res) => {
 
         //Create the new user
         const response = await User.create({ "username": username, "password": password });
+        alert(res.json({status: "Success"}));
         console.log("User Created Successfully", response)
     } catch (err) {
         console.error(err);
         return res.json({ error: 'Server error' });
     }
-})
+}
 
-app.post('/delete', async (req, res) => {
+export default async function remove(req, res) {
     const { username, password } = req.body
     const user = await User.findOne({ "username": username }).lean();
     try {
-        if(!user){
-            return res.json({ error: "Not an existing user"})
+        if (!user) {
+            alert(res.json({ error: "Not an existing user" }))
         }
         //Check username
         if (!username || typeof username != 'string') {
-            return res.json({ error: 'Invalid username' })
+            alert(res.json({ error: 'Invalid username' }))
         }
         //Check password
-        if (!password|| typeof password != 'string') {
-            return res.json({ error: 'Invalid Password' })
+        if (!password || typeof password != 'string') {
+            alert(res.json({ error: 'Invalid Password' }))
         }
         //Check Credentials
         if (await bcrypt.compare(password, user.password)) {
             //Delete the user if password is correct
             const response = await User.deleteOne(user);
-            console.log("User Deleted Successfully", response)
+            alert(res.json({ status: "Success" }))
         }
         else {
-            return res.json({ error: "Incorrect Password for This Account"})
+            alert(res.json({ error: "Incorrect Password for This Account" }))
         }
     } catch (err) {
         console.error(err)
-        return res.json({ error: "System Error"});
+        alert(res.json({ error: "System Error" }));
     }
-})
+}
 
 const server = http.createServer(app);
 const port = 3000;
