@@ -11,20 +11,28 @@
       <script>  document.write(new Date().toLocaleDateString()); </script>
     </center>
   </p>
-
   <center>
     <h2> Create New Account </h2>
     <form id="reg-form">
       <input type="text" autocomplete="off" id="username_reg" placeholder="Username" />
       <input type="password" autocomplete="off" id="password_reg" placeholder="Password" />
-      <input type="submit" name="Submit Form" value = "Submit Form">
+      <input type="submit" name="Submit Form" value="Submit Form">
+    </form>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <meta name="google-signin-client_id" content="793149492414-lbbqjt7pda74h4vivc1f7nbd5im4hng1.apps.googleusercontent.com">
+
+    <h2>Signin With Google</h2>
+    <form id="goog-signin">
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </form>
 
     <h2> Delete an Account </h2>
-    <form id = "del-form">
+    <form id="del-form">
       <input type="text" autocomplete="off" id="username_del" placeholder="Username" />
       <input type="password" autocomplete="off" id="password_del" placeholder="Password" />
-      <input type="submit" name="Delete Account" value = "Delete">
+      <input type="submit" name="Delete Account" value="Delete">
     </form>
 
     <h2> Already have an account? </h2>
@@ -50,7 +58,7 @@
       const username = document.getElementById('username_reg').value;
       const password = document.getElementById('password_reg').value;
 
-      const result = await fetch('/api/register', {
+      const result = await fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -81,7 +89,7 @@
       const username = document.getElementById('username_del').value;
       const password = document.getElementById('password_del').value;
 
-      const result = await fetch('/api/delete', {
+      const result = await fetch('/delete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -93,6 +101,11 @@
       }).then((res) => res.json())
     }
   </script>
+
+  <script>
+    function onSignIn() {
+      window.location.href = "viewimage.html"
+    } </script>
 </body>
 
 </html>

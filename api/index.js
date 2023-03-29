@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken')
 
 var mongoose = require('mongoose');
 var User = require('../models/userModel');
-var Image = require('../models/imageModel')
 
 const app = express();
 
@@ -26,7 +25,7 @@ mongoose.connect("mongodb+srv://jack-user:xG1uUiB768v6g9ns@cluster47197.dvgwacl.
 
 app.use('/', express.static(path.join(__dirname, 'static')));
 
-app.post('/api/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     const { username, password } = req.body
     const user = await User.findOne({ "username": username }).lean();
     if (!user) {
@@ -44,7 +43,7 @@ app.post('/api/login', async (req, res) => {
     return res.json({ status: 'error', error: "Invalid username/password" });
 })
 
-app.post('/api/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     const { username, password: plaintextpassword } = req.body
     try {
         //Check username
@@ -69,7 +68,7 @@ app.post('/api/register', async (req, res) => {
     }
 })
 
-app.post('/api/delete', async (req, res) => {
+app.post('/delete', async (req, res) => {
     const { username, password } = req.body
     const user = await User.findOne({ "username": username }).lean();
     try {
