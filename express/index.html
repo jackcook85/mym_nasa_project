@@ -19,14 +19,18 @@
       <input type="submit" name="Submit Form" value="Submit Form">
     </form>
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <meta name="google-signin-client_id" content="793149492414-lbbqjt7pda74h4vivc1f7nbd5im4hng1.apps.googleusercontent.com">
+    <div id="g_id_onload"
+         data-client_id="793149492414-lbbqjt7pda74h4vivc1f7nbd5im4hng1.apps.googleusercontent.com"
+         data-callback="onSignIn"></div>
+    <!-- 
+    <meta name="google-signin-client_id"
+      content="793149492414-lbbqjt7pda74h4vivc1f7nbd5im4hng1.apps.googleusercontent.com"> -->
 
     <h2>Signin With Google</h2>
-    <form id="goog-signin">
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    </form>
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+    <div class="g_id_signin" data-type="standard"></div>
 
     <h2> Delete an Account </h2>
     <form id="del-form">
@@ -40,72 +44,78 @@
       <input type="button" value="Login" onclick="toLogin()">
     </form>
   </center>
-
-  <script>
-    function toLogin() {
-      window.location.href = "login.html"
-    }
-  </script>
-
-  <script>
-    form = document.getElementById('reg-form')
-    form.addEventListener('submit', registerUser)
-    form.addEventListener('submit', clearInputs)
-
-    async function registerUser(event) {
-      event.preventDefault()
-
-      const username = document.getElementById('username_reg').value;
-      const password = document.getElementById('password_reg').value;
-
-      const result = await fetch('/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username,
-          password
-        })
-      }).then((res) => res.json())
-    }
-
-    function clearInputs(event) {
-      event.preventDefault()
-      document.getElementById('username_reg').value = "";
-      document.getElementById('password_reg').value = "";
-      document.getElementById('username_del').value = "";
-      document.getElementById('password_del').value = "";
-    }
-  </script>
-
-  <script>
-    form = document.getElementById('del-form');
-    form.addEventListener('submit', deleteUser)
-    form.addEventListener('submit', clearInputs)
-
-    async function deleteUser(event) {
-      event.preventDefault()
-      const username = document.getElementById('username_del').value;
-      const password = document.getElementById('password_del').value;
-
-      const result = await fetch('/remove', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username,
-          password
-        })
-      }).then((res) => res.json())
-    }
-  </script>
-
-  <script>
-    function onSignIn() {
-      window.location.href = "viewimage.html"
-    } </script>
 </body>
+<script>
+  function toLogin() {
+    window.location.href = "login.html"
+  }
+</script>
+
+<script>
+  form = document.getElementById('reg-form')
+  form.addEventListener('submit', registerUser)
+  form.addEventListener('submit', clearInputs)
+
+  async function registerUser(event) {
+    event.preventDefault()
+
+    const username = document.getElementById('username_reg').value;
+    const password = document.getElementById('password_reg').value;
+
+    const result = await fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    }).then((res) => res.json())
+  }
+
+  function clearInputs(event) {
+    event.preventDefault()
+    document.getElementById('username_reg').value = "";
+    document.getElementById('password_reg').value = "";
+    document.getElementById('username_del').value = "";
+    document.getElementById('password_del').value = "";
+  }
+</script>
+
+<script>
+  form = document.getElementById('del-form');
+  form.addEventListener('submit', deleteUser)
+  form.addEventListener('submit', clearInputs)
+
+  async function deleteUser(event) {
+    event.preventDefault()
+    const username = document.getElementById('username_del').value;
+    const password = document.getElementById('password_del').value;
+
+    const result = await fetch('/remove', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    }).then((res) => res.json())
+  }
+</script>
+
+<script>
+  function onSignIn(googleUser) {
+    // var profile = googleUser.getBasicProfile();
+    // const id = profile.getId(); // Do not send to your backend! Use an ID token instead.
+    // const name = profile.getName();
+    // const imgurl = profile.getImageUrl();
+    // const username = profile.getEmail(); // This is null if the 'email' scope is not present.
+    window.location.href = "viewimage.html"
+    console.log("Successful Sign in")
+  }
+</script>
 
 </html>
